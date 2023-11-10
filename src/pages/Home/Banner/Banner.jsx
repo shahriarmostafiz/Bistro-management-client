@@ -7,11 +7,20 @@ import img3 from "../../../../src/assets/home/03.png"
 import img4 from "../../../../src/assets/home/04.jpg"
 import img5 from "../../../../src/assets/home/05.png"
 import img6 from "../../../../src/assets/home/06.png"
+const data = [img1, img2,
+    img3, img4, img5, img6
+]
 const Banner = () => {
     return (
         <div>
-            <Carousel autoPlay={true} interval={2000} showArrows={false} transitionTime={600} infiniteLoop={true}>
-                <div>
+            <Carousel autoPlay={true} interval={2000} showArrows={false} transitionTime={1200} infiniteLoop={true}>
+                {
+                    data.map((item, index) => <div key={index}>
+                        <img src={item} />
+                    </div>)
+                }
+
+                {/* <div>
                     <img src={img1} />
                 </div>
                 <div>
@@ -28,7 +37,7 @@ const Banner = () => {
                 </div>
                 <div>
                     <img src={img6} />
-                </div>
+                </div> */}
             </Carousel>
         </div>
     );
