@@ -34,7 +34,7 @@ const data = [
 
 const Categories = () => {
     return (
-        <div>
+        <div className=''>
             <Title subHeading={"From 9 AM to 11PM"} mainHeading={"Order Online"}></Title>
             <Swiper
                 slidesPerView={4}

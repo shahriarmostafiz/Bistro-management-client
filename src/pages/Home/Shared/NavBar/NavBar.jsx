@@ -4,13 +4,13 @@ import { NavLink } from 'react-router-dom';
 const NavBar = () => {
     const links = <>
         <li><NavLink to={'/'}>Home </NavLink></li>
-        <li><NavLink to={'/x'}>Something  </NavLink></li>
-        <li><NavLink to={'/y'}>Something 2  </NavLink></li>
         <li><NavLink to={'/menu'}>Menu </NavLink></li>
+        <li><NavLink to={'/order'}>Order  </NavLink></li>
+        <li><NavLink to={'/y'}>Something 2  </NavLink></li>
     </>
     return (
-        <div>
-            <div className="navbar fixed z-10 max-w-screen-2xl text-white bg-black bg-opacity-25 ">
+        <div className=''>
+            <div className="navbar max-w-screen-xl mx-auto fixed z-10  text-white bg-black bg-opacity-25  ">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
