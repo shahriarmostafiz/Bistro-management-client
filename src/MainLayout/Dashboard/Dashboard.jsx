@@ -3,9 +3,10 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { FaHome, FaCalendar, FaCartPlus, FaWallet, FaCalendarCheck, FaShopify, FaUtensils, FaList, FaBook, FaUsers, } from "react-icons/fa"
 import { MdOutlineRateReview, MdOutlineRestaurantMenu, MdShop, MdShoppingBag } from "react-icons/md";
 import { Helmet } from 'react-helmet-async';
+import useAdmin from '../../hooks/useAdmin/useAdmin';
 
 const Dashboard = () => {
-    const admin = true;
+    const [isAdmin] = useAdmin();
     return (
         <div className='min-h-screen flex gap-4 py-12'>
             <Helmet>
@@ -16,7 +17,7 @@ const Dashboard = () => {
             <div className="w-64 min-h-screen bg-amber-600 px-4 py-12">
                 <ul className='menu text-lg text-black '>
                     {
-                        admin ? <>
+                        isAdmin ? <>
                             <li><NavLink to={"/dashboard/adminHome"}><FaHome />Admin Home</NavLink></li>
                             <li><NavLink to={"/dashboard/addItems"}><FaUtensils />Add Items </NavLink></li>
                             <li><NavLink to={"/dashboard/manageItems"}><FaList />Manage Items  </NavLink></li>
