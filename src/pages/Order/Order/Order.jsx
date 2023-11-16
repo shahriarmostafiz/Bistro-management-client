@@ -12,10 +12,11 @@ import { Helmet } from 'react-helmet-async';
 const Order = () => {
     const categories = ["Salad", "Pizza", "Soup", "Dessert", "Drinks"]
     const { category } = useParams()
-    const initialIndex = categories.indexOf(category)
+    const initialIndex = category ? categories.indexOf(category) : 0
+    // console.log(initialIndex);
     const [tabIndex, setTabIndex] = useState(initialIndex);
     const [menu] = useMenu()
-    console.log(category);
+    // console.log(category);
     const pizzas = menu.filter(items => items.category === "pizza")
     const drinks = menu.filter(items => items.category === "drinks")
 
@@ -26,7 +27,7 @@ const Order = () => {
         <div>
             <Helmet>
                 <title>
-                    Order | {category}
+                    Order | {category ? category : "Today"}
                 </title>
             </Helmet>
             <Cover img={Banner} title={"Order Page"} subtitle={"Get the best"}></Cover>

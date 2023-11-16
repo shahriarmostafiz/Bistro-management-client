@@ -1,12 +1,29 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import useAuth from '../../../../hooks/useAuth/useAuth';
+import auth from '../../../../Firebase/firebase.config';
+import { GiShoppingCart } from 'react-icons/gi';
+import useCart from '../../../../hooks/useCart/useCart';
+
 
 const NavBar = () => {
+    const { user, logout } = useAuth()
+    const [cart] = useCart()
+    console.log("cart", cart);
+    const handleLogout = () => {
+        logout()
+            .then(() => {
+                console.log("logged out ");
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+    }
     const links = <>
         <li><NavLink to={'/'}>Home </NavLink></li>
         <li><NavLink to={'/menu'}>Menu </NavLink></li>
         <li><NavLink to={'/order'}>Order  </NavLink></li>
-        <li><NavLink to={'/y'}>Something 2  </NavLink></li>
+        <li><NavLink to={'/register'}>Register</NavLink></li>
+        <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
     </>
     return (
         <div className=''>
@@ -28,7 +45,18 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    {user ?
+                        <div className='flex gap-2'>
+                            <img src={auth.currentUser?.photoURL} className='rounded-full w-12' alt="user img" />
+                            <Link to={"dashboard/cart"} className="btn  ">
+                                <GiShoppingCart></GiShoppingCart>
+                                <div className="badge badge-secondary">+{cart?.length}</div>
+                            </Link>
+                            <button onClick={handleLogout} className='btn btn-ghost hover:btn-error'>logout </button >
+                        </div>
+                        :
+                        <NavLink to={'/login'} className="btn btn-ghost ">Login   </NavLink>
+                    }
                 </div>
             </div>
         </div>

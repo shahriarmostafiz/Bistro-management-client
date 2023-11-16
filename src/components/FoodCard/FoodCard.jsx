@@ -1,7 +1,41 @@
 import React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth/useAuth';
+import useAxios from '../../hooks/useAxios/useAxios';
+import useCart from '../../hooks/useCart/useCart';
 
 const FoodCard = ({ item }) => {
-    const { name, price, image, recipe } = item
+    const { user } = useAuth()
+    const [, refetch] = useCart()
+    const { name, price, image, recipe, _id } = item
+    const navigate = useNavigate()
+    const location = useLocation()
+    const axiosSecure = useAxios()
+    const handleOrder = () => {
+        if (user && user?.email) {
+
+            // console.log(food, user?.email);
+            const cartData = {
+                name, price, image,
+                userEmail: user?.email,
+                foodId: _id
+
+            }
+            console.log(cartData);
+            axiosSecure.post("/carts", cartData)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.insertedId) {
+                        alert("product added")
+                        refetch()
+                    }
+                })
+        }
+        else {
+            // alert("login to continue ")
+            navigate("/login", { state: { from: location } })
+        }
+    }
 
     return (
         <div>
@@ -14,7 +48,8 @@ const FoodCard = ({ item }) => {
                     <h2 className="card-title">{name}</h2>
                     <p>{recipe}</p>
                     <div className="card-actions">
-                        <button className="btn btn-outline  border-0 border-b-2  ">Order</button>
+                        {/* <Link to={`/purchase/${_id}`} className="btn btn-outline  border-0 border-b-2  ">Order</Link> */}
+                        <button onClick={handleOrder} className="btn btn-outline  border-0 border-b-2  ">Order</button>
                     </div>
                 </div>
             </div>
